@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prioritization of Grasslands in Alfred Nzo (2022)</title>
+</head>
+<body>
+
+  <h1>Prioritization of Grasslands in Alfred Nzo (2022)</h1>
+
+  <h2>Objective</h2>
+  <p>
+    To identify and prioritize grassland areas most at risk from human activity (built-up and cultivated land)
+    using the 2022 National Land Cover dataset in QGIS. The results will support local biodiversity conservation 
+    and land-use planning.
+  </p>
+
+  <h2>Method Summary</h2>
+  <ul>
+    <li>Extracted grassland, cultivated, and built-up areas from the 2022 SA Land Cover raster</li>
+    <li>Reclassified cultivated and built-up into binary rasters</li>
+    <li>Used the Proximity (Distance) tool to generate distance rasters</li>
+    <li>Summed the distances and masked with grassland</li>
+    <li>Normalized the result from 0 (high risk) to 1 (low risk)</li>
+    <li>Final raster styled with red–green ramp for visual clarity</li>
+  </ul>
+
+  <h2>Focus Area</h2>
+  <p>Alfred Nzo District Municipality, Eastern Cape</p>
+
+  <h2>Tools Used</h2>
+  <ul>
+    <li>QGIS 3.42.3 (Münster)</li>
+    <li>Raster Calculator</li>
+    <li>Proximity (Distance) Tool</li>
+    <li>SA National Land Cover 2022 dataset</li>
+    <li>SA Administrative Boundaries</li>
+    <li>Google Earth (for place names)</li>
+  </ul>
+<h2>Map Outputs</h2>
+<img src="images/umzimvubu.png" alt="Umzimvubu Grassland Prioritization Map" width="600"><br>
+<img src="images/matatiele.png" alt="Matatiele Grassland Prioritization Map" width="600">
+
+</body>
+</html>
