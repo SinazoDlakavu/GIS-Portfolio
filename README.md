@@ -1,7 +1,3 @@
 # GIS-Portfolio
-🌿 Eastern Cape Grassland Prioritization Portfolio This portfolio showcases a series of GIS-based environmental assessments focused on identifying and prioritizing grassland areas for conservation in the Alfred Nzo District, Eastern Cape, South Africa. Using the 2022 South African National Land Cover dataset, each municipal-level project applies spatial analysis tools in QGIS — including land cover reclassification, proximity analysis, and raster normalization — to map areas most at risk from human activity (built-up and cultivated land). Key techniques include:  
-Land cover extraction and binary raster creation. 
-Distance raster generation (built-up and cultivated)  
-Index calculation and normalization (0 = high risk, 1 = low risk) for each municipality (Umzimvubu, Matatiele, Mbizana, and Ntabankulu). 
+Welcome to my GIS portfolio! Here, I showcase projects that apply spatial analysis and mapping techniques to support environmental and land-use planning in South Africa. Explore my work using QGIS and Land Cover data to address real-world challenges like conservation and flood risk. Thanks for visiting!
 
-This work supports decision-making for biodiversity protection, ecological restoration, and integrated land-use planning in rural South Africa.
