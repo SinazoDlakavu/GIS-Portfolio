@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Terrain and Geological Risk Assessment for Built-Up Areas - Region South of Mthatha</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      color: #2c3e50;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .image-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .image-grid img {
+      width: 48%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .image-grid img {
+        width: 100%;
+      }
+    }
+
+    .button-container {
+  margin-top: 30px;
+}
+
+.button-container a {
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #2c3e50;
+  color: white;
+  border-radius: 5px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.button-container a:hover {
+  background-color: #1a252f;
+}
+  </style>
+</head>
+<body>
+
+  <h1>Terrain and Geological Risk Assessment for Built-Up Areas - Region South of Mthatha</h1>
+
+  <h2>Objective</h2>
+  <p>
+    To identify built-up areas situated on steep slopes (>15°) in relation to underlying geological formations in the Mthatha region. This analysis supports land-use planning by highlighting areas where slope and geology may present potential development risks.
+  </p>
+
+  <h2>Method Summary</h2>
+<ul>
+  <li>Clipped the 1:1 million South African geology layer to the Mthatha municipal extent</li>
+  <li>Loaded a DEM and derived slope in degrees using the terrain analysis tool</li>
+  <li>Reclassified slope raster to identify steep slopes greater than 15°</li>
+  <li>Extracted built-up areas from the 2022 SA Land Cover dataset and reclassified to a binary raster</li>
+  <li>Overlayed built-up and steep slope rasters to highlight risk zones</li>
+  <li>Styled final output over the geology layer for visual interpretation of geological context</li>
+</ul>
+
+
+  <h2>Focus Area</h2>
+  <p>King Sabata Dalindyebo District Municipality, Eastern Cape</p>
+
+  <h2>Tools Used</h2>
+<ul>
+  <li>QGIS 3.34.4 (Münster)</li>
+  <li>Raster Calculator</li>
+  <li>Slope (Terrain Analysis) Tool</li>
+  <li>Clip by Mask Layer</li>
+  <li>Reclassify by Table (Raster)</li>
+  <li>SA National Land Cover 2022 (NLC)</li>
+  <li>1:1 Million Geological Map of South Africa (CGS)</li>
+  <li>South African Municipal Boundaries (Municipal Demarcation Board)</li>
+  <li>Google Earth (for context and place names)</li>
+</ul>
+
+
+  <h2>Map Outputs</h2>
+  <div class="image-grid">
+    <img src="images/Geology map.png" alt="Areas Built-up on Steep Slopes Map">
+  </div>
+
+  <div class="button-container">
+    <a href="index.html">Home</a>
+    <a href="SinazoCV.html">View CV</a>
+  </div>
+
+</body>
+</html>
