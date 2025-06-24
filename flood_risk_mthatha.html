@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mthatha Flood Risk Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    const map = L.map('map').setView([-31.59, 28.79], 12);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let riverBufferLayer;
+
+    // Separate layers for land use categories
+    let naturalLayer = L.geoJSON(null, {
+      style: {
+        color: 'grey',
+        weight: 1,
+        fillOpacity: 0.5
+      }
+    });
+
+    let builtUpLayer = L.geoJSON(null, {
+      style: {
+        color: 'orange',
+        weight: 1,
+        fillOpacity: 0.5
+      }
+    });
+
+    let cultivatedLayer = L.geoJSON(null, {
+      style: {
+        color: 'green',
+        weight: 1,
+        fillOpacity: 0.5
+      }
+    });
+
+    // Fetch River Buffer
+    const riverFetch = fetch('River_Buffer.geojson')
+      .then(res => res.json())
+      .then(data => {
+        riverBufferLayer = L.geoJSON(data, {
+          style: {
+            color: 'blue',
+            weight: 2,
+            fillOpacity: 0.3
+          }
+        }).addTo(map);
+      })
+      .catch(error => console.error("Error loading buffer:", error));
+
+    // Fetch Land Use and split features
+    const landUseFetch = fetch('combined_mask_ksd.geojson')
+      .then(res => res.json())
+      .then(data => {
+        data.features.forEach(feature => {
+          const dn = feature.properties.DN;
+          if (dn === 0) {
+            naturalLayer.addData(feature);
+          } else if (dn === 1) {
+            builtUpLayer.addData(feature);
+          } else if (dn === 2) {
+            cultivatedLayer.addData(feature);
+          }
+        });
+
+        // Add all land use layers to map (optional)
+        naturalLayer.addTo(map);
+        builtUpLayer.addTo(map);
+        cultivatedLayer.addTo(map);
+      })
+      .catch(error => console.error("Error loading land use:", error));
+
+    // Add layer control after both layers load
+    Promise.all([riverFetch, landUseFetch]).then(() => {
+      const baseLayers = {};
+      const overlays = {
+        "River Buffer": riverBufferLayer,
+        "Natural Areas": naturalLayer,
+        "Built-up Areas": builtUpLayer,
+        "Cultivated Areas": cultivatedLayer
+      };
+      L.control.layers(baseLayers, overlays, { collapsed: false }).addTo(map);
+    });
+  </script>
+</body>
+</html>
