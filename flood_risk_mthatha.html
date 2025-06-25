@@ -21,6 +21,10 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+  <!-- Load local data as JS variables -->
+  <script src="River_Buffer.js"></script>
+  <script src="combined_mask_ksd.js"></script>
+
   <script>
     const map = L.map('map').setView([-31.59, 28.79], 12);
 
@@ -56,53 +60,40 @@
       }
     });
 
-    // Fetch River Buffer
-    const riverFetch = fetch('River_Buffer.geojson')
-      .then(res => res.json())
-      .then(data => {
-        riverBufferLayer = L.geoJSON(data, {
-          style: {
-            color: 'blue',
-            weight: 2,
-            fillOpacity: 0.3
-          }
-        }).addTo(map);
-      })
-      .catch(error => console.error("Error loading buffer:", error));
+    // Add river buffer from JS variable
+    riverBufferLayer = L.geoJSON(riverBufferData, {
+      style: {
+        color: 'blue',
+        weight: 2,
+        fillOpacity: 0.3
+      }
+    }).addTo(map);
 
-    // Fetch Land Use and split features
-    const landUseFetch = fetch('combined_mask_ksd.geojson')
-      .then(res => res.json())
-      .then(data => {
-        data.features.forEach(feature => {
-          const dn = feature.properties.DN;
-          if (dn === 0) {
-            naturalLayer.addData(feature);
-          } else if (dn === 1) {
-            builtUpLayer.addData(feature);
-          } else if (dn === 2) {
-            cultivatedLayer.addData(feature);
-          }
-        });
-
-        // Add all land use layers to map (optional)
-        naturalLayer.addTo(map);
-        builtUpLayer.addTo(map);
-        cultivatedLayer.addTo(map);
-      })
-      .catch(error => console.error("Error loading land use:", error));
-
-    // Add layer control after both layers load
-    Promise.all([riverFetch, landUseFetch]).then(() => {
-      const baseLayers = {};
-      const overlays = {
-        "River Buffer": riverBufferLayer,
-        "Natural Areas": naturalLayer,
-        "Built-up Areas": builtUpLayer,
-        "Cultivated Areas": cultivatedLayer
-      };
-      L.control.layers(baseLayers, overlays, { collapsed: false }).addTo(map);
+    // Add land use layers from JS variable
+    landUseData.features.forEach(feature => {
+      const dn = feature.properties.DN;
+      if (dn === 0) {
+        naturalLayer.addData(feature);
+      } else if (dn === 1) {
+        builtUpLayer.addData(feature);
+      } else if (dn === 2) {
+        cultivatedLayer.addData(feature);
+      }
     });
+
+    naturalLayer.addTo(map);
+    builtUpLayer.addTo(map);
+    cultivatedLayer.addTo(map);
+
+    // Add layer control
+    const baseLayers = {};
+    const overlays = {
+      "River Buffer": riverBufferLayer,
+      "Natural Areas": naturalLayer,
+      "Built-up Areas": builtUpLayer,
+      "Cultivated Areas": cultivatedLayer
+    };
+    L.control.layers(baseLayers, overlays, { collapsed: false }).addTo(map);
   </script>
 </body>
 </html>
