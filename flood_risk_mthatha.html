@@ -70,25 +70,25 @@
     }).addTo(map);
 
     // Add land use layers from JS variable
-    landUseData.features.forEach(feature => {
-      const dn = feature.properties.DN;
-      if (dn === 0) {
-        naturalLayer.addData(feature);
-      } else if (dn === 1) {
-        builtUpLayer.addData(feature);
-      } else if (dn === 2) {
-        cultivatedLayer.addData(feature);
-      }
-    });
+    // landUseData.features.forEach(feature => {
+    //   const dn = feature.properties.DN;
+    //   if (dn === 0) {
+    //     naturalLayer.addData(feature);
+    //   } else if (dn === 1) {
+    //     builtUpLayer.addData(feature);
+    //   } else if (dn === 2) {
+    //     cultivatedLayer.addData(feature);
+    //   }
+    // });
 
-    naturalLayer.addTo(map);
-    builtUpLayer.addTo(map);
-    cultivatedLayer.addTo(map);
+    // naturalLayer.addTo(map);
+    // builtUpLayer.addTo(map);
+    // cultivatedLayer.addTo(map);
 
     // Add layer control
     const baseLayers = {};
     const overlays = {
-      "River Buffer": riverBufferLayer,
+      "River Buffer (100m)": riverBufferLayer,
       "Natural Areas": naturalLayer,
       "Built-up Areas": builtUpLayer,
       "Cultivated Areas": cultivatedLayer
